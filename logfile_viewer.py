@@ -8,14 +8,14 @@ from math import sin, cos, pi, ceil
 # The canvas and world extents of the scene.
 # Canvas extents in pixels, world extents in millimeters.
 canvas_extents = (600, 600)
-world_extents = (2000.0, 2000.0)
+world_extents = (5000.0, 5000.0)
 
 # The extents of the sensor canvas.
 sensor_canvas_extents = canvas_extents
 
 # The maximum scanner range used to scale scan measurement drawings,
 # in millimeters.
-max_scanner_range = 2200.0
+max_scanner_range = 2550.0
 
 class DrawableObject(object):
     def draw(self, at_step):

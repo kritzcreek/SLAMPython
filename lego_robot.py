@@ -4,7 +4,7 @@ from math import sin, cos, pi
 
 # In previous versions, the S record included the number of scan points.
 # If so, set this to true.
-s_record_has_count = True
+s_record_has_count = False
 
 # Class holding log data of our Lego robot.
 # The logfile understands the following records:
@@ -214,16 +214,17 @@ class LegoLogfile(object):
                    len(self.particles))
 
 
-    #TODO: Hier muss kalibriert werden!!
+    # TODO: Hier muss kalibriert werden!!
     @staticmethod
     def beam_index_to_angle(i, mounting_angle = -0.06981317007977318):
         """Convert a beam index to an angle, in radians."""
-        return (i - 330.0) * 0.006135923151543 + mounting_angle
+        return (i - 18.0) * (2*pi / 35.0)
+        #return (i - 18.0) * 0.006135923151543 + mounting_angle
 
     @staticmethod
     def min_max_bearing():
         return (LegoLogfile.beam_index_to_angle(0),
-                LegoLogfile.beam_index_to_angle(660))
+                LegoLogfile.beam_index_to_angle(34))
 
     @staticmethod
     def scanner_to_world(pose, point):

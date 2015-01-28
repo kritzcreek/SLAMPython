@@ -4,8 +4,6 @@
 # (among some other helper functions) the final step for a fully functional
 # SLAM correction step.
 #
-# slam_10_e_correction
-# Claus Brenner, 20.02.2013
 from lego_robot import *
 from slam_g_library import get_cylinders_from_scan, write_cylinders,\
      write_error_ellipses, get_mean, get_error_ellipse_and_heading_variance,\
@@ -294,9 +292,10 @@ class FastSLAM:
 
 if __name__ == '__main__':
     # Robot constants.
-    scanner_displacement = 30.0 # Wie weit ist der Scanner entgegen der Radachse verschoben?
+    scanner_displacement = 3.0 # Wie weit ist der Scanner entgegen der Radachse verschoben?
+    #TODO: Muss nochmal kalibriert werden. 28.01
     ticks_to_mm = 0.349 # Motor Ticks zu mm
-    robot_width = 155.0
+    robot_width = 120.0
 
     # Cylinder extraction and matching constants.
     minimum_valid_distance = 20.0 # Nur Messwerte über 20mm werden akzeptiert
@@ -312,9 +311,9 @@ if __name__ == '__main__':
     minimum_correspondence_likelihood = 0.001  # Min likelihood of correspondence.
 
     # Generate initial particles. Each particle is (x, y, theta).
-    number_of_particles = 200
+    number_of_particles = 50
     # TODO: Muss an die tatsächliche Größe der Arena angepasst werden
-    start_state = np.array([500.0, 0.0, 45.0 / 180.0 * pi])
+    start_state = np.array([2500.0, 2500.0, 45.0 / 180.0 * pi])
     initial_particles = [copy.copy(Particle(start_state))
                          for _ in xrange(number_of_particles)]
 
@@ -328,8 +327,8 @@ if __name__ == '__main__':
 
     # Read data.
     logfile = LegoLogfile()
-    logfile.read("robot4_motors.txt")
-    logfile.read("robot4_scan.txt")
+    logfile.read("motor_log2.txt")
+    logfile.read("uss_log2.txt")
 
     # Loop over all motor tick records.
     # This is the FastSLAM filter loop, with prediction and correction.
@@ -362,6 +361,8 @@ if __name__ == '__main__':
         output_particle = min([
             (np.linalg.norm(mean[0:2] - fs.particles[i].pose[0:2]),i)
             for i in xrange(len(fs.particles)) ])[1]
+
+        print fs.particles[output_particle].landmark_positions
         # Write estimates of landmarks.
         write_cylinders(f, "W C",
                         fs.particles[output_particle].landmark_positions)
