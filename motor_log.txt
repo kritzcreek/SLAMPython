@@ -1,0 +1,6 @@
+M 0 0 a a a -1 a a a a a a a
+M 19387 20 a a a 19 a a a a a a a
+M 38987 39 a a a 38 a a a a a a a
+M 58476 58 a a a 58 a a a a a a a
+M 78229 77 a a a 76 a a a a a a a
+M 98110 96 a a a 95 a a a a a a a
