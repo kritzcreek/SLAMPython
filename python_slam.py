@@ -294,26 +294,26 @@ if __name__ == '__main__':
     # Robot constants.
     scanner_displacement = 3.0 # Wie weit ist der Scanner entgegen der Radachse verschoben?
     #TODO: Muss nochmal kalibriert werden. 28.01
-    ticks_to_mm = 0.349 # Motor Ticks zu mm
+    ticks_to_mm = 0.500 # Motor Ticks zu mm
     robot_width = 120.0
 
     # Cylinder extraction and matching constants.
     minimum_valid_distance = 20.0 # Nur Messwerte über 20mm werden akzeptiert
-    depth_jump = 100.0 # Ein Feature wird ab einem Sprung von 100mm Distanz angenommen
+    depth_jump = 80.0 # Ein Feature wird ab einem Sprung von 100mm Distanz angenommen
     cylinder_offset = 90.0 # Radius des Zylinders
 
     # Filter constants.
-    control_motion_factor = 0.35  # Error in motor control.
-    control_turn_factor = 0.6  # Additional error due to slip when turning.
-    measurement_distance_stddev = 200.0  # Distance measurement error of cylinders.
-    measurement_angle_stddev = 15.0 / 180.0 * pi  # Angle measurement error.
+    control_motion_factor = 0.15  # Error in motor control.
+    control_turn_factor = 0.2  # Additional error due to slip when turning.
+    measurement_distance_stddev = 100.0  # Distance measurement error of cylinders.
+    measurement_angle_stddev = 45.0 / 180.0 * pi  # Angle measurement error.
     # TODO: muss wahrscheinlich kleiner eingestellt werden
-    minimum_correspondence_likelihood = 0.001  # Min likelihood of correspondence.
+    minimum_correspondence_likelihood = 0.0001  # Min likelihood of correspondence.
 
     # Generate initial particles. Each particle is (x, y, theta).
-    number_of_particles = 50
+    number_of_particles = 200
     # TODO: Muss an die tatsächliche Größe der Arena angepasst werden
-    start_state = np.array([2500.0, 2500.0, 45.0 / 180.0 * pi])
+    start_state = np.array([1000.0, 1000.0, 45.0 / 180.0 * pi])
     initial_particles = [copy.copy(Particle(start_state))
                          for _ in xrange(number_of_particles)]
 
@@ -327,8 +327,8 @@ if __name__ == '__main__':
 
     # Read data.
     logfile = LegoLogfile()
-    logfile.read("motor_log2.txt")
-    logfile.read("uss_log2.txt")
+    logfile.read("motor_log.txt")
+    logfile.read("uss_log.txt")
 
     # Loop over all motor tick records.
     # This is the FastSLAM filter loop, with prediction and correction.

@@ -8,7 +8,7 @@ from math import sin, cos, pi, ceil
 # The canvas and world extents of the scene.
 # Canvas extents in pixels, world extents in millimeters.
 canvas_extents = (600, 600)
-world_extents = (5000.0, 5000.0)
+world_extents = (2500.0, 2500.0)
 
 # The extents of the sensor canvas.
 sensor_canvas_extents = canvas_extents
